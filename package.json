@@ -15,7 +15,8 @@
     "flowbite-react": "^0.9.0",
     "react": "^18.2.0",
     "react-crossfade-simple": "^1.0.7",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "weather-react-icons": "^4.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

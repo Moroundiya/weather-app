@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CrossFade } from "react-crossfade-simple";
 import cloud from '../assets/images/cloudy.svg';
 import sunny from '../assets/images/sunny.svg';
@@ -7,12 +7,25 @@ import thunder from '../assets/images/thunder.svg';
 import rain from '../assets/images/rain.svg';
 import snow from '../assets/images/snow.svg';
 import axios from 'axios';
+import { CityContext } from '../App';
+
+// export const DataContext = createContext()
 
 function Welcome({ showNextPage }) {
-
     const images = [sunny, rain, storm, thunder, snow, cloud]
+    const { city, setCity, data, setData } = useContext(CityContext)
+
     const [swapped, setSwapped] = useState(0);
     const [count, setCount] = useState(0);
+
+    // const [info, setInfo] = useState()
+
+
+    // const [weather, setWeather] = useState("Hello")
+    // const [name, setName] = useState()
+    // const [description, setDescription] = useState()
+    // const [country, setCountry] = useState()
+    // const [icon, setIcon] = useState()
     // let tagElement;
     // const tagElement = <img src={cloud} alt="" className='w-[300px]' />
 
@@ -28,16 +41,27 @@ function Welcome({ showNextPage }) {
         tagElement = <img src={`${images[i]}`} alt="" className='w-[300px]' />
     }
 
-    const showDashboard = (e) => {
+    const showDashboard = async (e) => {
         e.preventDefault()
 
-        axios.get('https://api.openweathermap.org/data/2.5/weather?q=abeokuta&appid=c56ae9a936fced91c931c585e16966f8')
-            .then(res => console.log(res.data))
+        var response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c56ae9a936fced91c931c585e16966f8`)
+            .then(res => {
+                // console.log(res.data);
+                return res.data;
+            })
             .catch(err => console.log(err))
-
+        setData(response)
         showNextPage(true)
-        // console.log('Submitted')
     }
+
+
+    useEffect(() => {
+        // console.log('effect data weather is ' + data?.name)
+        // setInfo(JSON.stringify(data))
+
+
+    }, [data])
+
 
     useEffect(() => {
 
@@ -58,7 +82,7 @@ function Welcome({ showNextPage }) {
         // setUrl(images[count])
         // console.log(tagElement)
         return () => clearTimeout(intervalId);
-    }, [count])
+    }, [count, city])
 
 
     return (
@@ -73,7 +97,6 @@ function Welcome({ showNextPage }) {
                             {tagElement}
                         </CrossFade>
                     </div>
-
                     <div className="px-5 w-full mt-12">
                         <form class="flex items-center max-w-sm mx-auto" onSubmit={showDashboard}>
                             <label for="simple-search" class="sr-only">Search</label>
@@ -81,7 +104,7 @@ function Welcome({ showNextPage }) {
                                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="30px" viewBox="0 0 24 24"><path fill="#3B247B" d="M12 2c3.31 0 6 2.66 6 5.95C18 12.41 12 19 12 19S6 12.41 6 7.95C6 4.66 8.69 2 12 2m0 4a2 2 0 0 0-2 2a2 2 0 0 0 2 2a2 2 0 0 0 2-2a2 2 0 0 0-2-2m8 13c0 2.21-3.58 4-8 4s-8-1.79-8-4c0-1.29 1.22-2.44 3.11-3.17l.64.91C6.67 17.19 6 17.81 6 18.5c0 1.38 2.69 2.5 6 2.5s6-1.12 6-2.5c0-.69-.67-1.31-1.75-1.76l.64-.91C18.78 16.56 20 17.71 20 19" /></svg>
                                 </div>
-                                <input type="text" id="simple-search" class="bg-gray-70 border h-[48px] border-gray-300 text-gray-900 text-[1rem] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter city name..." required />
+                                <input type="text" id="simple-search" value={city} onChange={(e) => setCity(e.target.value)} class="bg-gray-70 border h-[48px] border-gray-300 text-gray-900 text-[1rem] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-12 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter city name..." required />
                             </div>
                             <button type="submit" class="h-[48px] w-[48px] flex justify-center items-center p-2.5 ms-2 text-sm font-medium text-white bg-[#3B247B] rounded-lg border border-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -94,6 +117,7 @@ function Welcome({ showNextPage }) {
                         <div className="w-full flex justify-center">
                             <button className="mt-8 text-center w-auto shadow-md bg-[#3B247B] text-gray-300 px-3 py-2 rounded">Use my current location </button>
                         </div>
+
                     </div>
                 </div>
             </div>

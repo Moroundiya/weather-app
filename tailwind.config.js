@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'weather-bg': "url('/public/weather-bg.svg')",
-        'stat-bg': "url('/public/stat-bg.svg')"
+        'weather-bg': "url('/weather-bg.svg')",
+        'stat-bg': "url('/stat-bg.svg')"
       },
       fontFamily: {
         madimi: ["Madimi One", "sans-serif"],
