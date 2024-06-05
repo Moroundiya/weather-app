@@ -10,6 +10,7 @@ function App() {
   const [nextPage, showNextPage] = useState(false)
   const [city, setCity] = useState("");
   const [data, setData] = useState({})
+  const [error, setError] = useState("")
 
 
 
@@ -23,7 +24,7 @@ function App() {
 
   return (
     <>
-      <CityContext.Provider value={{ city, setCity, data, setData }}>
+      <CityContext.Provider value={{ city, setCity, data, setData, error, setError }}>
         {nextPage ? <Dashboard /> : <Welcome showNextPage={showNextPage} />}
 
         {/* <Welcome showNextPage={showNextPage} /> */}

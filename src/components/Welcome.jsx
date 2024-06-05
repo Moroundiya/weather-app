@@ -13,7 +13,7 @@ import { CityContext } from '../App';
 
 function Welcome({ showNextPage }) {
     const images = [sunny, rain, storm, thunder, snow, cloud]
-    const { city, setCity, data, setData } = useContext(CityContext)
+    const { city, setCity, data, setData, setError } = useContext(CityContext)
 
     const [swapped, setSwapped] = useState(0);
     const [count, setCount] = useState(0);
@@ -49,19 +49,14 @@ function Welcome({ showNextPage }) {
                 // console.log(res.data);
                 return res.data;
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.error(err)
+                // console.log(error)
+                setError(err.response.data.message)
+            })
         setData(response)
         showNextPage(true)
     }
-
-
-    useEffect(() => {
-        // console.log('effect data weather is ' + data?.name)
-        // setInfo(JSON.stringify(data))
-
-
-    }, [data])
-
 
     useEffect(() => {
 
@@ -77,17 +72,13 @@ function Welcome({ showNextPage }) {
             2000 // every 3 seconds
         );
 
-
-
-        // setUrl(images[count])
-        // console.log(tagElement)
         return () => clearTimeout(intervalId);
-    }, [count, city])
+    }, [count, city, data])
 
 
     return (
         <>
-            <div className="w-full min-h-full bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
+            <div className="w-full min-h-full bg-weather-bg bg-cover bg-no-repeat md:bg-left bg-bottom relative">
                 <div className='h-1/6 flex justify-center items-center'>
                     <h1 className='text-white text-5xl pt-[40px] font-shan text-3d'>MyWeather</h1>
                 </div>
@@ -119,6 +110,11 @@ function Welcome({ showNextPage }) {
                         </div>
 
                     </div>
+                </div>
+
+                <div className='w-full absolute bottom-2 text-center'>
+                    <p className='text-gray-400  text-custom-shadow'>Designed by Moroundiya 😎</p>
+
                 </div>
             </div>
         </>
