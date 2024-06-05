@@ -113,7 +113,7 @@ function Welcome({ showNextPage }) {
                 </div>
 
                 <div className='w-full absolute bottom-2 text-center'>
-                    <p className='text-gray-400  text-custom-shadow'>Designed by Moroundiya 😎</p>
+                    <p className='text-[#3B247B]  text-custom-shadow font-bold copyright text-sm'>Designed by Moroundiya 😎</p>
 
                 </div>
             </div>
