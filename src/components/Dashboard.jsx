@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import errorImg from '../assets/images/error.png';
 import per from '../assets/images/pressure.png';
 import humid from '../assets/images/humid.svg';
@@ -11,15 +11,34 @@ import Welcome from './Welcome';
 
 function Dashboard() {
 
+    const initialcurrentDate = new Date();
+    const initialcurrentTime = initialcurrentDate.toLocaleTimeString();
+    const initialcurrentday = initialcurrentDate.toDateString();
+    console.log(initialcurrentday)
+
     const { data, error, setNextPage, setCity, setCheckdata, geoerror, checkdata, geo, nextpage, setLoadgeo } = useContext(CityContext)
+    const [activeTime, setActiveTime] = useState(initialcurrentTime)
 
     // var daytime = data?.weather[0].icon?.includes('d') 
     // var daytime2 = geo?.weather[0].icon?.includes('d') 
     var content
-    const currentDate = new Date();
-    const currentTime = currentDate.toLocaleTimeString();
-    // console.log('nextpage after is ' + nextpage)
+    var currentDate
+    var currentTime
     var daytime
+
+
+    const getTime = () => {
+        currentDate = new Date();
+        currentTime = currentDate.toLocaleTimeString();
+        setActiveTime(currentTime)
+    }
+
+    setInterval(() => {
+        // getTime()
+        getTime()
+    }, 1000);
+
+    // console.log('nextpage after is ' + nextpage)
 
     if (checkdata == 'data') {
         daytime = data?.weather[0].icon?.includes('d')
@@ -35,7 +54,7 @@ function Dashboard() {
             <p className='text-xl font-semibold relative mb-5 custom-text-shadow'>
                 {data?.name}, <span>{data?.sys?.country}.</span>
             </p>
-            <p className='text-md'>Friday, 26 August 2022 | <span>{currentTime}</span></p>
+            <p className='text-md w-full text-center'>{initialcurrentday} &nbsp;|<span className='w-[100px] inline-block'>{activeTime}</span></p>
 
             <div className='w-full px-4 sm:px-8 md:w-[550px]'>
                 <div className='bg-stat-bg flex justify-between items-center px-5 rounded-xl bg-center bg-cover bg-no-repeat w-full h-[120px] mt-6'>
@@ -75,7 +94,7 @@ function Dashboard() {
             <p className='text-xl font-semibold relative mb-5 custom-text-shadow'>
                 {geo?.name}, <span>{geo?.sys?.country}.</span>
             </p>
-            <p className='text-md'>Friday, 26 August 2022 | <span>{currentTime}</span></p>
+            <p className='text-md'>{initialcurrentday} &nbsp;| <span className='w-[100px] inline-block'>{activeTime}</span></p>
 
             <div className='w-full px-4 sm:px-8 md:w-[550px]'>
                 <div className='bg-stat-bg flex justify-between items-center px-5 rounded-xl bg-center bg-cover bg-no-repeat w-full h-[120px] mt-6'>
@@ -134,6 +153,9 @@ function Dashboard() {
 
     useEffect(() => {
         // console.log("geo dashboard is " + JSON.stringify(geo))
+
+
+
     }, [error, geo, data])
 
     return (
