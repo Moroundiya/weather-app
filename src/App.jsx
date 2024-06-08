@@ -7,12 +7,28 @@ export const CityContext = createContext();
 
 function App() {
 
-  const [nextPage, showNextPage] = useState(false)
+  const [nextPage, setNextPage] = useState(false)
   const [city, setCity] = useState("");
   const [data, setData] = useState({})
   const [error, setError] = useState("")
+  const [geoerror, setGeoerror] = useState("")
+  const [position, setPosition] = useState({ latitude: null, longitude: null });
+  const [geo, setGeo] = useState({});
+  const [loadgeo, setLoadgeo] = useState(false);
+  const [checkdata, setCheckdata] = useState("");
 
 
+  // var showContent
+
+  // if (nextPage) {
+  //   showContent = <Dashboard />
+  // } else if (nextPage == false) {
+  //   showContent = <Welcome />
+  // } else if (nextPage == null) {
+  //   showContent = <h1> Null</h1>
+  // } else {
+  //   <Welcome />
+  // }
 
 
   useEffect(() => {
@@ -24,10 +40,10 @@ function App() {
 
   return (
     <>
-      <CityContext.Provider value={{ city, setCity, data, setData, error, setError }}>
-        {nextPage ? <Dashboard /> : <Welcome showNextPage={showNextPage} />}
-
-        {/* <Welcome showNextPage={showNextPage} /> */}
+      <CityContext.Provider value={{ city, setCity, data, setData, setGeoerror, geoerror, error, setError, checkdata, setCheckdata, setNextPage, loadgeo, setLoadgeo, geo, setGeo }}>
+        {/* {showContent} */}
+        {/* <Welcome /> */}
+        {nextPage ? <Dashboard /> : <Welcome />}
       </CityContext.Provider>
     </>
   )
