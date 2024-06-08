@@ -124,7 +124,7 @@ function Welcome() {
 
     return (
         <>
-            <div className="w-full min-h-full bg-weather-bg bg-cover bg-no-repeat md:bg-left bg-bottom relative">
+            <div className="w-full min-h-screen bg-weather-bg bg-cover bg-no-repeat md:bg-left bg-bottom relative">
                 <div className='h-1/6 flex justify-center items-center'>
                     <h1 className='text-white text-5xl pt-[40px] font-shan text-3d'>MyWeather</h1>
                 </div>
