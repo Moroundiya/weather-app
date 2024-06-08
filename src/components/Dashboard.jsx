@@ -23,7 +23,7 @@ function Dashboard() {
 
     if (checkdata == 'data') {
         daytime = data?.weather[0].icon?.includes('d')
-        content = <div className="font-poppins animation-show py-10 flex flex-col text-white items-center md:bg-left w-full min-h-full bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
+        content = <div className="font-poppins animation-show py-10 flex flex-col text-white items-center md:bg-left w-full min-h-screen bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
             <Icon icon="lets-icons:back" onClick={() => { setNextPage(false), setCity(""), setLoadgeo(false) }} className="absolute cursor-pointer top-5 left-4 text-white text-3xl" />
             <p className='text-lg capitalize'>{data?.weather[0].description}</p>
             <div className='w-full h-[270px] flex justify-center items-center'>
@@ -63,7 +63,7 @@ function Dashboard() {
     }
     else if (checkdata == 'geo') {
         daytime = geo?.weather[0].icon?.includes('d')
-        content = <div className="font-poppins animation-show py-10 flex flex-col text-white items-center md:bg-left w-full min-h-full bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
+        content = <div className="font-poppins animation-show py-10 flex flex-col text-white items-center md:bg-left w-full min-h-screen bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
             <Icon icon="lets-icons:back" onClick={() => { setNextPage(false), setCity(""), setLoadgeo(false) }} className="absolute cursor-pointer top-5 left-4 text-white text-3xl" />
             <p className='text-lg capitalize'>{geo?.weather[0].description}</p>
             <div className='w-full h-[270px] flex justify-center items-center'>
@@ -101,7 +101,7 @@ function Dashboard() {
 
         </div>
     } else if (checkdata == 'error') {
-        content = <div className="capitalize animation-show py-10 flex flex-col text-white items-center justify-center md:bg-left w-full min-h-full bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
+        content = <div className="capitalize animation-show py-10 flex flex-col text-white items-center justify-center md:bg-left w-full min-h-screen bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
             <Icon icon="lets-icons:back" onClick={() => { setNextPage(false), setCity(""), setLoadgeo(false) }} className="absolute cursor-pointer top-5 left-4 text-white text-3xl" />
             <img src={errorImg} alt="" className='-mt-10' />
             <p className='text-xl font-semibold custom-text-shadow'>
@@ -112,7 +112,7 @@ function Dashboard() {
 
         </div>
     } else if (checkdata == 'nodetect') {
-        content = <div className="capitalize animation-show py-10 flex flex-col text-white items-center justify-center md:bg-left w-full min-h-full bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
+        content = <div className="capitalize animation-show py-10 flex flex-col text-white items-center justify-center md:bg-left w-full min-h-screen bg-weather-bg bg-cover bg-no-repeat bg-bottom relative">
             <Icon icon="lets-icons:back" onClick={() => { setNextPage(false), setCity(""), setLoadgeo(false) }} className="absolute cursor-pointer top-5 left-4 text-white text-3xl" />
             <img src={errorImg} alt="" className='-mt-10' />
             <p className='text-xl font-semibold custom-text-shadow'>

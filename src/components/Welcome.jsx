@@ -51,7 +51,7 @@ function Welcome() {
 
         setTimeout(() => {
             setNextPage(true)
-        }, 3000);
+        }, 4000);
     }
 
 
