@@ -18,6 +18,11 @@ function App() {
   const [checkdata, setCheckdata] = useState("");
   const [network, setNetwork] = useState(false);
   const [detectNetwork, setDetectNetwork] = useState(false);
+  const [currentCityTime, setcurrentCityTime] = useState();
+  const [currentCityDate, setcurrentCityDate] = useState();
+  const [currentGeoTime, setcurrentGeoTime] = useState();
+  const [currentGeoDate, setcurrentGeoDate] = useState();
+
 
 
   // var showContent
@@ -42,7 +47,7 @@ function App() {
 
   return (
     <>
-      <CityContext.Provider value={{ city, setCity, data, setData, setGeoerror, geoerror, error, setNetwork, network, detectNetwork, setDetectNetwork, setError, checkdata, setCheckdata, setNextPage, loadgeo, setLoadgeo, geo, setGeo }}>
+      <CityContext.Provider value={{ city, setCity, data, setData, setcurrentCityDate, setcurrentGeoTime,currentGeoTime, setcurrentGeoDate, currentGeoDate, currentCityDate, setcurrentCityTime, currentCityTime, setGeoerror, geoerror, error, setNetwork, network, detectNetwork, setDetectNetwork, setError, checkdata, setCheckdata, setNextPage, loadgeo, setLoadgeo, geo, setGeo }}>
         {/* {showContent} */}
         {/* <Welcome /> */}
         {nextPage ? <Dashboard /> : <Welcome />}

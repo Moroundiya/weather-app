@@ -13,7 +13,7 @@ import { CityContext } from '../App';
 
 function Welcome() {
     const images = [sunny, rain, storm, thunder, snow, cloud]
-    const { city, setCity, data, setData, setError, geo, setDetectNetwork, setNetwork, setGeoerror, geoerror, checkdata, setCheckdata, nextpage, setNextPage, setGeo, setLoadgeo, loadgeo } = useContext(CityContext)
+    const { city, setCity, data, setData, setError, geo, setDetectNetwork, setcurrentGeoTime, setcurrentGeoDate, setcurrentCityDate, setcurrentCityTime, setNetwork, setGeoerror, geoerror, checkdata, setCheckdata, nextpage, setNextPage, setGeo, setLoadgeo, loadgeo } = useContext(CityContext)
 
     const [swapped, setSwapped] = useState(0);
     const [count, setCount] = useState(0);
@@ -21,40 +21,12 @@ function Welcome() {
 
     const getPosition = () => {
         setLoadgeo(true)
-        // if ("geolocation" in navigator) {
-        //     navigator.geolocation.getCurrentPosition(async function (position) {
-        //         var currentlocation = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=c56ae9a936fced91c931c585e16966f8 0i`)
-        //             .then(res => {
-        //                 setCheckdata('geo')
-        //                 return res.data
-        //             })
-        //             .catch(err => {
-        //                 console.log(err)
-        //                 setCheckdata('nodetect')
-        //                 if (!err.response) {
-        //                     setDetectNetwork(false)
-        //                     setGeoerror(err.message)
-
-        //                 } else {
-        //                     setDetectNetwork(true)
-        //                     setGeoerror(err.response.data.message)
-        //                 }
-        //             })
-
-        //                 // setGeoerror(err.message)
-        //         // console.log(currentlocation)
-        //         setGeo(currentlocation)
-        //     });
-
-
-
-
-
 
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(async function (position) {
                 var currentlocation = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=c56ae9a936fced91c931c585e16966f8`)
                     .then(res => {
+                        console.log(res.data)
                         setCheckdata('geo')
                         return res.data
                     })
@@ -63,22 +35,29 @@ function Welcome() {
                         setCheckdata('nodetect')
                         setGeoerror(err.response.data.message)
 
-                        if (!err.response) {
-                            setDetectNetwork(false)
-                            setGeoerror(err.message)
+                        // if (!err.response) {
+                        //     setDetectNetwork(false)
+                        //     setGeoerror(err.message)
 
-                        } else {
-                            setDetectNetwork(true)
-                            setGeoerror(err.response.data.message)
-                        }
+                        // } else {
+                        //     setDetectNetwork(true)
+                        //     setGeoerror(err.response.data.message)
+                        // }
 
                     })
 
-                // console.log(currentlocation)
                 setGeo(currentlocation)
-                // setLoadgeo(true)
-                // setNextPage(true)
-                // console.log('next page getposition is ' + nextpage)
+
+
+                await axios.get(`https://api.ipgeolocation.io/timezone?apiKey=8d8f93048a5d4dd496009fdf07f861c4&lat=${currentlocation.coord.lat}&long=${currentlocation.coord.lon}`)
+                    .then(res => {
+                        // console.log(res)
+                        setcurrentGeoTime(res.data.time_12)
+                        setcurrentGeoDate(res.data.date_time_txt)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
 
 
             });
@@ -122,6 +101,7 @@ function Welcome() {
 
         var response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=c56ae9a936fced91c931c585e16966f8`)
             .then(res => {
+                // console.log(res.data)
                 setCheckdata('data')
                 return res.data;
             })
@@ -148,8 +128,18 @@ function Welcome() {
         //     setCheckdata('nodata')
         // }
         // console.log('next page showdashboard is ' + nextpage)
-
         setNextPage(true)
+
+        await axios.get(`https://api.ipgeolocation.io/timezone?apiKey=8d8f93048a5d4dd496009fdf07f861c4&lat=${response.coord.lat}&long=${response.coord.lon}`)
+            .then(res => {
+                // console.log(res)
+                setcurrentCityTime(res.data.time_12)
+                setcurrentCityDate(res.data.date_time_txt)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
 
 
     }

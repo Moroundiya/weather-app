@@ -16,7 +16,7 @@ function Dashboard() {
     const initialcurrentday = initialcurrentDate.toDateString();
     // console.log(initialcurrentday)
 
-    const { data, error, setNextPage, setCity, setCheckdata, network, detectNetwork, geoerror, checkdata, geo, nextpage, setLoadgeo } = useContext(CityContext)
+    const { data, error, setNextPage, setCity, setCheckdata, currentCityDate, network, currentCityTime, currentGeoTime, currentGeoDate, detectNetwork, geoerror, checkdata, geo, nextpage, setLoadgeo } = useContext(CityContext)
     const [activeTime, setActiveTime] = useState(initialcurrentTime)
 
     // var daytime = data?.weather[0].icon?.includes('d') 
@@ -54,7 +54,7 @@ function Dashboard() {
             <p className='text-xl font-semibold relative mb-5 custom-text-shadow'>
                 {data?.name}, <span>{data?.sys?.country}.</span>
             </p>
-            <p className='text-md w-full text-center'>{initialcurrentday}&nbsp;| <span className='auto'>{activeTime}</span></p>
+            <p className='text-md w-full text-center'>{currentCityDate}&nbsp;| <span className='auto'>{currentCityTime}</span></p>
 
             <div className='w-full px-4 sm:px-8 md:w-[550px]'>
                 <div className='bg-stat-bg flex justify-between items-center px-5 rounded-xl bg-center bg-cover bg-no-repeat w-full h-[120px] mt-6'>
@@ -94,7 +94,7 @@ function Dashboard() {
             <p className='text-xl font-semibold relative mb-5 custom-text-shadow'>
                 {geo?.name}, <span>{geo?.sys?.country}.</span>
             </p>
-            <p className='text-md'>{initialcurrentday}&nbsp;| <span className='auto'>{activeTime}</span></p>
+            <p className='text-md'>{currentGeoDate}&nbsp;| <span className='auto'>{currentGeoTime}</span></p>
 
             <div className='w-full px-4 sm:px-8 md:w-[550px]'>
                 <div className='bg-stat-bg flex justify-between items-center px-5 rounded-xl bg-center bg-cover bg-no-repeat w-full h-[120px] mt-6'>
@@ -124,7 +124,7 @@ function Dashboard() {
             <Icon icon="lets-icons:back" onClick={() => { setNextPage(false), setCity(""), setLoadgeo(false) }} className="absolute cursor-pointer top-5 left-4 text-white text-3xl" />
             <img src={errorImg} alt="" className='-mt-10' />
             <p className='text-xl font-semibold custom-text-shadow'>
-                {network ? error : null}
+                {error}
             </p>
 
             <p className='text-[#3B247B] font-sans  absolute bottom-2 text-custom-shadow font-bold copyright text-sm'>Designed by Moroundiya 😎</p>
@@ -135,7 +135,7 @@ function Dashboard() {
             <Icon icon="lets-icons:back" onClick={() => { setNextPage(false), setCity(""), setLoadgeo(false) }} className="absolute cursor-pointer top-5 left-4 text-white text-3xl" />
             <img src={errorImg} alt="" className='-mt-10' />
             <p className='text-xl font-semibold custom-text-shadow'>
-                {detectNetwork ? geoerror : null}
+                {geoerror}
             </p>
 
             <p className='text-[#3B247B] font-sans  absolute bottom-2 text-custom-shadow font-bold copyright text-sm'>Designed by Moroundiya 😎</p>
