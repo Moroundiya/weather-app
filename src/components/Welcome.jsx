@@ -13,13 +13,44 @@ import { CityContext } from '../App';
 
 function Welcome() {
     const images = [sunny, rain, storm, thunder, snow, cloud]
-    const { city, setCity, data, setData, setError, geo, setGeoerror, geoerror, checkdata, setCheckdata, nextpage, setNextPage, setGeo, setLoadgeo, loadgeo } = useContext(CityContext)
+    const { city, setCity, data, setData, setError, geo, setDetectNetwork, setNetwork, setGeoerror, geoerror, checkdata, setCheckdata, nextpage, setNextPage, setGeo, setLoadgeo, loadgeo } = useContext(CityContext)
 
     const [swapped, setSwapped] = useState(0);
     const [count, setCount] = useState(0);
 
 
     const getPosition = () => {
+        setLoadgeo(true)
+        // if ("geolocation" in navigator) {
+        //     navigator.geolocation.getCurrentPosition(async function (position) {
+        //         var currentlocation = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=c56ae9a936fced91c931c585e16966f8 0i`)
+        //             .then(res => {
+        //                 setCheckdata('geo')
+        //                 return res.data
+        //             })
+        //             .catch(err => {
+        //                 console.log(err)
+        //                 setCheckdata('nodetect')
+        //                 if (!err.response) {
+        //                     setDetectNetwork(false)
+        //                     setGeoerror(err.message)
+
+        //                 } else {
+        //                     setDetectNetwork(true)
+        //                     setGeoerror(err.response.data.message)
+        //                 }
+        //             })
+
+        //                 // setGeoerror(err.message)
+        //         // console.log(currentlocation)
+        //         setGeo(currentlocation)
+        //     });
+
+
+
+
+
+
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(async function (position) {
                 var currentlocation = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=c56ae9a936fced91c931c585e16966f8`)
@@ -31,11 +62,21 @@ function Welcome() {
                         // console.log(err)
                         setCheckdata('nodetect')
                         setGeoerror(err.response.data.message)
+
+                        if (!err.response) {
+                            setDetectNetwork(false)
+                            setGeoerror(err.message)
+
+                        } else {
+                            setDetectNetwork(true)
+                            setGeoerror(err.response.data.message)
+                        }
+
                     })
 
                 // console.log(currentlocation)
                 setGeo(currentlocation)
-                setLoadgeo(true)
+                // setLoadgeo(true)
                 // setNextPage(true)
                 // console.log('next page getposition is ' + nextpage)
 
@@ -43,11 +84,12 @@ function Welcome() {
             });
         } else {
             // console.log("Geolocation is not available in your browser.");
+            setCheckdata('nodetect')
+            setDetectNetwork(true)
+            setGeoerror('Error detecting current location')
+
         }
 
-        // setInterval(() => {
-        //     setNextPage(true)
-        // }, 3000);
 
         setTimeout(() => {
             setNextPage(true)
@@ -85,8 +127,20 @@ function Welcome() {
             })
             .catch(err => {
                 // console.error(err)
-                setError(err.response.data.message)
+                // setNetwork(false)
                 setCheckdata('error')
+
+                if (!err.response) {
+                    // setError(err.message)
+                    setNetwork(false)
+                    setError(err.message)
+
+                } else {
+                    setNetwork(true)
+                    setError(err.response.data.message)
+                }
+
+                // setNetwork(true)
             })
         setData(response)
         // if (!(data && geo)) {
@@ -124,7 +178,7 @@ function Welcome() {
 
     return (
         <>
-            <div className="w-full min-h-screen bg-weather-bg bg-cover bg-no-repeat md:bg-left bg-bottom relative">
+            <div className="w-full min-h-screen pt-2 pb-16 bg-weather-bg bg-cover bg-no-repeat md:bg-left bg-bottom relative">
                 <div className='h-1/6 flex justify-center items-center'>
                     <h1 className='text-white text-5xl pt-[40px] font-shan text-3d'>MyWeather</h1>
                 </div>

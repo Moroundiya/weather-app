@@ -16,6 +16,8 @@ function App() {
   const [geo, setGeo] = useState({});
   const [loadgeo, setLoadgeo] = useState(false);
   const [checkdata, setCheckdata] = useState("");
+  const [network, setNetwork] = useState(false);
+  const [detectNetwork, setDetectNetwork] = useState(false);
 
 
   // var showContent
@@ -40,7 +42,7 @@ function App() {
 
   return (
     <>
-      <CityContext.Provider value={{ city, setCity, data, setData, setGeoerror, geoerror, error, setError, checkdata, setCheckdata, setNextPage, loadgeo, setLoadgeo, geo, setGeo }}>
+      <CityContext.Provider value={{ city, setCity, data, setData, setGeoerror, geoerror, error, setNetwork, network, detectNetwork, setDetectNetwork, setError, checkdata, setCheckdata, setNextPage, loadgeo, setLoadgeo, geo, setGeo }}>
         {/* {showContent} */}
         {/* <Welcome /> */}
         {nextPage ? <Dashboard /> : <Welcome />}
