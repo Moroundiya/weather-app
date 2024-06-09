@@ -204,7 +204,7 @@ function Welcome() {
                         </form>
 
                         <div className="w-full flex justify-center">
-                            <button onClick={getPosition} className={loadgeo ? `pointer-events-none mt-8 text-center w-auto shadow-md bg-[#3B247B] text-gray-300 px-3 py-2 rounded` : `mt-8 text-center w-auto shadow-md bg-[#3B247B] text-gray-300 px-3 py-2 rounded`}>{loadgeo ? "Detecting your current location" : "Use my current location... "}</button>
+                            <button onClick={getPosition} className={loadgeo ? `pointer-events-none mt-8 text-center w-auto shadow-md bg-[#3B247B] text-gray-300 px-3 py-2 rounded` : `mt-8 text-center w-auto shadow-md bg-[#3B247B] text-gray-300 px-3 py-2 rounded`}>{loadgeo ? "Detecting your current location" : "Check my current location "}</button>
                         </div>
                         <p className='mt-5'>{loadgeo ? isLoading : ""}</p>
 
