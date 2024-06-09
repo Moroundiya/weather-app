@@ -14,13 +14,10 @@ function Dashboard() {
     const initialcurrentDate = new Date();
     const initialcurrentTime = initialcurrentDate.toLocaleTimeString();
     const initialcurrentday = initialcurrentDate.toDateString();
-    // console.log(initialcurrentday)
 
     const { data, error, setNextPage, setCity, setCheckdata, currentCityDate, network, currentCityTime, currentGeoTime, currentGeoDate, detectNetwork, geoerror, checkdata, geo, nextpage, setLoadgeo } = useContext(CityContext)
     const [activeTime, setActiveTime] = useState(initialcurrentTime)
 
-    // var daytime = data?.weather[0].icon?.includes('d') 
-    // var daytime2 = geo?.weather[0].icon?.includes('d') 
     var content
     var currentDate
     var currentTime

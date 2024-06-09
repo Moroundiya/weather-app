@@ -47,9 +47,7 @@ function App() {
 
   return (
     <>
-      <CityContext.Provider value={{ city, setCity, data, setData, setcurrentCityDate, setcurrentGeoTime,currentGeoTime, setcurrentGeoDate, currentGeoDate, currentCityDate, setcurrentCityTime, currentCityTime, setGeoerror, geoerror, error, setNetwork, network, detectNetwork, setDetectNetwork, setError, checkdata, setCheckdata, setNextPage, loadgeo, setLoadgeo, geo, setGeo }}>
-        {/* {showContent} */}
-        {/* <Welcome /> */}
+      <CityContext.Provider value={{ city, setCity, data, setData, setcurrentCityDate, setcurrentGeoTime, currentGeoTime, setcurrentGeoDate, currentGeoDate, currentCityDate, setcurrentCityTime, currentCityTime, setGeoerror, geoerror, error, setNetwork, network, detectNetwork, setDetectNetwork, setError, checkdata, setCheckdata, setNextPage, loadgeo, setLoadgeo, geo, setGeo }}>
         {nextPage ? <Dashboard /> : <Welcome />}
       </CityContext.Provider>
     </>
